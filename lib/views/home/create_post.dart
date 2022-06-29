@@ -80,6 +80,8 @@ class _HomeState extends State<CreatePostPage> {
                       ),
                     ),
                   ),
+
+                  const Text("Imagenes"),
                   //Wisget del ElevatedButton 
                   Padding(
                     padding: const EdgeInsets.only(top: 16),

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intranet_movil/model/about.dart';
 
 class ApiIntranetConstans {
-  static String baseUrl = 'https://intranet.promolife.lat/';
+  static String baseUrl = 'https://intranet.kaths.com.mx/';
 
   static String loginEndpoint = 'api/login' ;
   static String getUser = 'api/getUser/' ;
@@ -107,6 +107,7 @@ class StringIntranetConstants{
   static const emptyChat = "Inicia una conversación con ";
   static const postMessageError = "Mensaje no enviado, revise su conexion a internet ";
 
+  static const noCommentsText = "Sé el primero en comentar esta publicación";
 
 } 
 

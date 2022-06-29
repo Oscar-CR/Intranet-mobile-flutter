@@ -114,8 +114,8 @@ class _PublicationContainerState extends State<PublicationContainer> {
               ],
             ),
           ),
-          widget.publicationData[0].photoPublication.length == 1 &&
-                  widget.publicationData[0].photoPublication[0].typeFile ==
+          
+              widget.publicationData[0].photoPublication[0].typeFile ==
                       "no data"
               ? const Padding(padding: EdgeInsets.zero)
               : widget.publicationData[0].photoPublication.length == 1
@@ -443,9 +443,11 @@ class _PublicationContainerState extends State<PublicationContainer> {
                   itemCount: _publicationComment.length,
                   itemBuilder: (context, index) {
                     return Row(
-                      children: _publicationComment[index].content ==
-                              "sin datos"
-                          ? []
+                      children:                       
+                      _publicationComment[index].content == "no data" 
+                          ? [
+                            const Padding(padding: EdgeInsets.zero)
+                          ]
                           : [
                               Padding(
                                   padding: const EdgeInsets.symmetric(
