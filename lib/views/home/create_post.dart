@@ -3,6 +3,12 @@ import 'package:intranet_movil/services/post_publication.dart';
 import 'package:intranet_movil/utils/constants.dart';
 import 'package:intranet_movil/views/home/home_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:http/http.dart' as http;
+import 'package:path/path.dart';
+import 'package:async/async.dart';
+import 'dart:io';
+import 'dart:convert';
+
 
 class CreatePostPage extends StatefulWidget {
   const CreatePostPage({Key? key}) : super(key: key);
@@ -81,8 +87,23 @@ class _HomeState extends State<CreatePostPage> {
                     ),
                   ),
 
-                  const Text("Imagenes"),
-                  //Wisget del ElevatedButton 
+                  SizedBox(
+                    width: double.infinity,
+                    height: 40,
+                    child: ElevatedButton.icon(
+                      onPressed: () {
+                       
+
+
+                      },
+                      icon: const Icon(
+                        Icons.photo_camera,
+                        size: 24.0,
+                      ),
+                      label: const Text('Subir imagen'), // <-- Text
+                    ),
+                  ),
+                  //Wisget del ElevatedButton
                   Padding(
                     padding: const EdgeInsets.only(top: 16),
                     child: SizedBox(
@@ -95,14 +116,14 @@ class _HomeState extends State<CreatePostPage> {
                             onPrimary: Colors.white, // foreground
                           ),
                           onPressed: () => {
-                                //Al presionar el boton de la publicacion, valida si es contenido del TextFromField no se encuentra vacio. 
+                                //Al presionar el boton de la publicacion, valida si es contenido del TextFromField no se encuentra vacio.
                                 if (_contentPublication.text.isNotEmpty)
                                   {
                                     //Notifica al usuario que se envio el mensaje
                                     ScaffoldMessenger.of(context)
                                         .showSnackBar(const SnackBar(
-                                      content: Text(
-                                          StringIntranetConstants.homeSuccessfulPost),
+                                      content: Text(StringIntranetConstants
+                                          .homeSuccessfulPost),
                                     )),
                                     //Envia al servidor una peticion de tipo POST con la información del usuario.
                                     postPublication(token,
@@ -118,7 +139,8 @@ class _HomeState extends State<CreatePostPage> {
                                 else
                                   {_formKey.currentState!.validate()}
                               },
-                          child: const Text(StringIntranetConstants.buttonPost)),
+                          child:
+                              const Text(StringIntranetConstants.buttonPost)),
                     ),
                   )
                 ],
@@ -127,4 +149,7 @@ class _HomeState extends State<CreatePostPage> {
   }
 
 
+
 }
+
+
