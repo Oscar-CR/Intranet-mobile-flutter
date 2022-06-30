@@ -50,7 +50,7 @@ class _ManualCardState extends State<ManualCard> {
                 child: ElevatedButton(
                   onPressed: () {
                     LaunchToInternet.launchURL(
-                        ApiIntranetConstans.baseUrl + widget.manualData[0].file);
+                        "https://drive.google.com/file/d/1VpbHE95675w38cu5PEyhDSWXEzs3v06b/view?usp=sharing");
                   },
                   child: const Text('ABRIR'),
                 ),
