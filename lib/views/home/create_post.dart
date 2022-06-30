@@ -23,6 +23,7 @@ class _HomeState extends State<CreatePostPage> {
   final _formKey = GlobalKey<FormState>();
   final _contentPublication = TextEditingController();
 
+  late String filePathString = "";
   late File filePath;
 
   @override
@@ -38,7 +39,9 @@ class _HomeState extends State<CreatePostPage> {
     //TO convert Xfile into file
     File file = File(image!.path);
     filePath = file;
-
+   
+    filePathString = file.toString();
+    
     return file;
   }
 
@@ -99,20 +102,32 @@ class _HomeState extends State<CreatePostPage> {
                       ),
                     ),
                   ),
-
+                  
                   FutureBuilder(
                       future: _getImage(),
                       builder:
                           (BuildContext context, AsyncSnapshot<File> snapshot) {
                         if (snapshot.data != null) {
-                          /* if(snapshot.data !=filePath){
-                  snapshot.data = filePath;
-                } */
-                          return Image.file(snapshot.data!);
+
+                          return Column(
+                            children: [
+                              Image.file(snapshot.data!),
+
+                              IconButton(
+                                onPressed: (){
+                                  setState(() {
+                                    snapshot.data!.delete();
+                                  });
+                                  
+                              }, 
+                              icon: Icon(Icons.delete))
+                            ],
+                          );
                         } else {
                           return Container();
                         }
                       }),
+                   
 
                   SizedBox(
                     width: double.infinity,
