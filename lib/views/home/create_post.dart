@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:intranet_movil/services/post_publication.dart';
 import 'package:intranet_movil/utils/constants.dart';
 import 'package:intranet_movil/views/home/home_page.dart';
@@ -8,7 +9,6 @@ import 'package:path/path.dart';
 import 'package:async/async.dart';
 import 'dart:io';
 import 'dart:convert';
-
 
 class CreatePostPage extends StatefulWidget {
   const CreatePostPage({Key? key}) : super(key: key);
@@ -23,10 +23,23 @@ class _HomeState extends State<CreatePostPage> {
   final _formKey = GlobalKey<FormState>();
   final _contentPublication = TextEditingController();
 
+  late File filePath;
+
   @override
   void initState() {
     super.initState();
     _getData();
+  }
+
+  Future<File> _getImage() async {
+    ImagePicker _picker = ImagePicker();
+    // Pick an image
+    XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+    //TO convert Xfile into file
+    File file = File(image!.path);
+    filePath = file;
+
+    return file;
   }
 
   void _getData() async {
@@ -87,14 +100,26 @@ class _HomeState extends State<CreatePostPage> {
                     ),
                   ),
 
+                  FutureBuilder(
+                      future: _getImage(),
+                      builder:
+                          (BuildContext context, AsyncSnapshot<File> snapshot) {
+                        if (snapshot.data != null) {
+                          /* if(snapshot.data !=filePath){
+                  snapshot.data = filePath;
+                } */
+                          return Image.file(snapshot.data!);
+                        } else {
+                          return Container();
+                        }
+                      }),
+
                   SizedBox(
                     width: double.infinity,
                     height: 40,
                     child: ElevatedButton.icon(
                       onPressed: () {
-                       
-
-
+                        _getData();
                       },
                       icon: const Icon(
                         Icons.photo_camera,
@@ -147,9 +172,4 @@ class _HomeState extends State<CreatePostPage> {
               ),
             )));
   }
-
-
-
 }
-
-
