@@ -25,6 +25,7 @@ class _HomeState extends State<CreatePostPage> {
 
   late String filePathString = "";
   late File filePath;
+  bool loadFuture =false;
 
   @override
   void initState() {
@@ -32,7 +33,8 @@ class _HomeState extends State<CreatePostPage> {
     _getData();
   }
 
-  Future<File> _getImage() async {
+  Future<File?> _getImage() async {
+    if(loadFuture ==true){
     ImagePicker _picker = ImagePicker();
     // Pick an image
     XFile? image = await _picker.pickImage(source: ImageSource.gallery);
@@ -41,8 +43,11 @@ class _HomeState extends State<CreatePostPage> {
     filePath = file;
    
     filePathString = file.toString();
-    
-    return file;
+    loadFuture =false;
+
+        return file;
+    }
+
   }
 
   void _getData() async {
@@ -106,7 +111,7 @@ class _HomeState extends State<CreatePostPage> {
                   FutureBuilder(
                       future: _getImage(),
                       builder:
-                          (BuildContext context, AsyncSnapshot<File> snapshot) {
+                          (BuildContext context, AsyncSnapshot<File?> snapshot) {
                         if (snapshot.data != null) {
 
                           return Column(
@@ -134,6 +139,11 @@ class _HomeState extends State<CreatePostPage> {
                     height: 40,
                     child: ElevatedButton.icon(
                       onPressed: () {
+                        
+                        if(loadFuture ==false){
+                          loadFuture = true;
+                          print(loadFuture);
+                        }
                         _getData();
                       },
                       icon: const Icon(
