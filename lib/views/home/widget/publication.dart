@@ -4,23 +4,27 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:intranet_movil/model/publication.dart';
 import 'package:intranet_movil/model/user_model.dart';
+
 import 'package:intranet_movil/utils/constants.dart';
 import 'package:http/http.dart' as http;
 import 'package:intranet_movil/views/profile/employee_profile.dart';
+import 'package:intranet_movil/views/request/widget/post_delete_alert_dialog.dart';
 
 class PublicationContainer extends StatefulWidget {
-  const PublicationContainer(
-      {Key? key,
-      required this.publicationData,
-      required this.publicationToLikeData,
-      required this.token,
-      required this.userlModelData})
-      : super(key: key);
+  const PublicationContainer({
+    Key? key,
+    required this.publicationData,
+    required this.publicationToLikeData,
+    required this.token,
+    required this.userlModelData,
+    required this.MainContext,
+  }) : super(key: key);
 
   final List<PublicationModel> publicationData;
   final List<PublicationModel> publicationToLikeData;
   final String token;
   final List<UserModel> userlModelData;
+  final BuildContext MainContext;
 
   @override
   State<PublicationContainer> createState() => _PublicationContainerState();
@@ -72,27 +76,50 @@ class _PublicationContainerState extends State<PublicationContainer> {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        InkWell(
-                          child: Text(
-                            widget.publicationData[0].userName,
-                            style: const TextStyle(
-                              fontSize: 12.00,
-                              fontWeight: FontWeight.bold,
-                            ),
-                            textAlign: TextAlign.left,
-                          ),
-                          onTap: () {
-                            Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) => EmployeeProfilePage(
-                                      employeeID:
-                                          widget.publicationData[0].userId,
-                                      employeeName:
-                                          widget.publicationData[0].userName,
-                                    )));
-                          },
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                InkWell(
+                                  child: Text(
+                                    widget.publicationData[0].userName,
+                                    style: const TextStyle(
+                                      fontSize: 12.00,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                    textAlign: TextAlign.left,
+                                  ),
+                                  onTap: () {
+                                    Navigator.of(context).push(
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                EmployeeProfilePage(
+                                                  employeeID: widget
+                                                      .publicationData[0]
+                                                      .userId,
+                                                  employeeName: widget
+                                                      .publicationData[0]
+                                                      .userName,
+                                                )));
+                                  },
+                                ),
+                                IconButton(
+                                    onPressed: () {
+                                      PostDelete().showPostDelete(
+                                          widget.MainContext,
+                                          widget.token,
+                                          widget.publicationData[0].id
+                                              .toString());
+                                    },
+                                    icon: const Icon(Icons.more_vert_outlined)),
+                              ],
+                            )
+                          ],
                         ),
                         Padding(
-                          padding: const EdgeInsets.only(left: 0, top: 4),
+                          padding: const EdgeInsets.only(left: 0, top: 0),
                           child: Text(widget.publicationData[0].created,
                               style: const TextStyle(fontSize: 10.00),
                               textAlign: TextAlign.left),
@@ -458,7 +485,7 @@ class _PublicationContainerState extends State<PublicationContainer> {
                                           ApiIntranetConstans.baseUrl +
                                               _publicationComment[index]
                                                   .photo
-                                                  .toString()), /*  backgroundImage: NetworkImage(ApiIntranetConstans.baseUrl + _directoryModel![index].photo.toString()), */
+                                                  .toString()),
                                     ),
                                   )),
                               const Padding(padding: EdgeInsets.only(left: 16)),
