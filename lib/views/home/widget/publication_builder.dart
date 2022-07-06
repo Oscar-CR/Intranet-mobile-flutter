@@ -10,13 +10,15 @@ class PublicationBuilder extends StatefulWidget {
       required this.publicationToLikeData,
       required this.userData,
       required this.isLike,
-      required this.token})
+      required this.token,
+      required this.MainContext})
       : super(key: key);
   final List<PublicationModel> publicationData;
   final List<PublicationModel> publicationToLikeData;
   final List<UserModel> userData;
   final bool isLike;
   final String token;
+  final BuildContext MainContext;
 
   @override
   State<PublicationBuilder> createState() => _PublicationBuilderState();
@@ -33,35 +35,41 @@ class _PublicationBuilderState extends State<PublicationBuilder> {
           padding: const EdgeInsets.all(0),
           itemCount: widget.publicationData.length,
           itemBuilder: (context, index) {
-            return PublicationContainer(publicationData: [
-              PublicationModel(
-                  id: widget.publicationData[index].id,
-                  userId: widget.publicationData[index].userId,
-                  photo: widget.publicationData[index].photo,
-                  userName: widget.publicationData[index].userName,
-                  created: widget.publicationData[index].created,
-                  contentPublication:
-                      widget.publicationData[index].contentPublication,
-                  photoPublication:
-                      widget.publicationData[index].photoPublication,
-                  likes: widget.publicationData[index].likes,
-                  isLike: widget.publicationData[index].isLike,
-                  comments: widget.publicationData[index].comments)
-            ], publicationToLikeData: [
-              PublicationModel(
-                  id: widget.publicationToLikeData[index].id,
-                  userId: widget.publicationToLikeData[index].userId,
-                  photo: widget.publicationToLikeData[index].photo,
-                  userName: widget.publicationToLikeData[index].userName,
-                  created: widget.publicationToLikeData[index].created,
-                  contentPublication:
-                      widget.publicationToLikeData[index].contentPublication,
-                  photoPublication:
-                      widget.publicationToLikeData[index].photoPublication,
-                  likes: widget.publicationToLikeData[index].likes,
-                  isLike: widget.publicationToLikeData[index].isLike,
-                  comments: widget.publicationToLikeData[index].comments)
-            ], token: widget.token, userlModelData: widget.userData);
+            return PublicationContainer(
+              publicationData: [
+                PublicationModel(
+                    id: widget.publicationData[index].id,
+                    userId: widget.publicationData[index].userId,
+                    photo: widget.publicationData[index].photo,
+                    userName: widget.publicationData[index].userName,
+                    created: widget.publicationData[index].created,
+                    contentPublication:
+                        widget.publicationData[index].contentPublication,
+                    photoPublication:
+                        widget.publicationData[index].photoPublication,
+                    likes: widget.publicationData[index].likes,
+                    isLike: widget.publicationData[index].isLike,
+                    comments: widget.publicationData[index].comments)
+              ],
+              publicationToLikeData: [
+                PublicationModel(
+                    id: widget.publicationToLikeData[index].id,
+                    userId: widget.publicationToLikeData[index].userId,
+                    photo: widget.publicationToLikeData[index].photo,
+                    userName: widget.publicationToLikeData[index].userName,
+                    created: widget.publicationToLikeData[index].created,
+                    contentPublication:
+                        widget.publicationToLikeData[index].contentPublication,
+                    photoPublication:
+                        widget.publicationToLikeData[index].photoPublication,
+                    likes: widget.publicationToLikeData[index].likes,
+                    isLike: widget.publicationToLikeData[index].isLike,
+                    comments: widget.publicationToLikeData[index].comments)
+              ],
+              token: widget.token,
+              userlModelData: widget.userData,
+              MainContext: widget.MainContext,
+            );
           },
         ),
       ],
