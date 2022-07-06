@@ -52,6 +52,7 @@ class _PublicationContainerState extends State<PublicationContainer> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     InkWell(
                       child: SizedBox(
@@ -72,52 +73,40 @@ class _PublicationContainerState extends State<PublicationContainer> {
                                 )));
                       },
                     ),
-                    const Padding(padding: EdgeInsets.only(left: 16)),
+                    const Padding(padding: EdgeInsets.only(left: 0)),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              children: [
-                                InkWell(
-                                  child: Text(
-                                    widget.publicationData[0].userName,
-                                    style: const TextStyle(
-                                      fontSize: 12.00,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                    textAlign: TextAlign.left,
+                        Column(children: [
+                          Row(
+                            children: [
+                              InkWell(
+                                child: Text(
+                                  widget.publicationData[0].userName,
+                                  style: const TextStyle(
+                                    fontSize: 12.00,
+                                    fontWeight: FontWeight.bold,
                                   ),
-                                  onTap: () {
-                                    Navigator.of(context).push(
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                EmployeeProfilePage(
-                                                  employeeID: widget
-                                                      .publicationData[0]
-                                                      .userId,
-                                                  employeeName: widget
-                                                      .publicationData[0]
-                                                      .userName,
-                                                )));
-                                  },
+                                  textAlign: TextAlign.left,
                                 ),
-                                IconButton(
-                                    onPressed: () {
-                                      PostDelete().showPostDelete(
-                                          widget.MainContext,
-                                          widget.token,
-                                          widget.publicationData[0].id
-                                              .toString());
-                                    },
-                                    icon: const Icon(Icons.more_vert_outlined)),
-                              ],
-                            )
-                          ],
-                        ),
+                                onTap: () {
+                                  Navigator.of(context).push(MaterialPageRoute(
+                                      builder: (context) => EmployeeProfilePage(
+                                            employeeID: widget
+                                                .publicationData[0].userId,
+                                            employeeName: widget
+                                                .publicationData[0].userName,
+                                          )));
+                                },
+                              ),
+                              IconButton(
+                                  onPressed: () {
+                                    OpenBottonSheet().openBottomSheet(context);
+                                  },
+                                  icon: const Icon(Icons.more_vert_outlined)),
+                            ],
+                          ),
+                        ]),
                         Padding(
                           padding: const EdgeInsets.only(left: 0, top: 0),
                           child: Text(widget.publicationData[0].created,

@@ -1,29 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:intranet_movil/services/post_post_delete.dart';
 import 'package:intranet_movil/views/home/home_page.dart';
-import 'package:intranet_movil/views/home/widget/publication.dart';
-import 'package:intranet_movil/views/home/widget/publication_card.dart';
-import 'package:intranet_movil/views/request/request_main_page.dart';
 
 class PostDelete {
   showPostDelete(
-    BuildContext contex,
+    BuildContext cont,
     String token,
     String publciationID,
   ) {
     Widget cancelButton = TextButton(
       child: const Text("Cancel"),
       onPressed: () {
-        Navigator.pop(contex);
+        Navigator.pop(cont);
       },
     );
     Widget continueButton = TextButton(
       child: const Text("Aceptar"),
       onPressed: () {
         postPostDelete(token, publciationID);
-        Navigator.pop(contex);
+        Navigator.pop(cont);
         Navigator.pushAndRemoveUntil(
-            contex,
+            cont,
             MaterialPageRoute(builder: (context) => const HomePage()),
             ModalRoute.withName("/PostPage"));
       },
@@ -37,10 +34,42 @@ class PostDelete {
       ],
     );
     showDialog(
-      context: contex,
+      context: cont,
       builder: (BuildContext context) {
         return alert;
       },
     );
+  }
+}
+
+class OpenBottonSheet {
+  openBottomSheet(BuildContext context) {
+    showModalBottomSheet(
+        context: context,
+        builder: (BuildContext context) {
+          return Column(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              ListTile(
+                leading: const Icon(Icons.photo),
+                title: const Text("Editar"),
+                onTap: () {},
+              ),
+              ListTile(
+                leading: const Icon(Icons.save),
+                title: const Text("Guardar"),
+                onTap: () {},
+              ),
+              ListTile(
+                leading: const Icon(Icons.delete),
+                title: const Text("Eliminar"),
+                onTap: () {
+                  /*Navigator.pop(context);
+                  PostDelete().showPostDelete(cont, token, publciationID);*/
+                },
+              ),
+            ],
+          );
+        });
   }
 }
